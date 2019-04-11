@@ -6,6 +6,9 @@
  */
 
 #include <iostream>
+#include "Log.hpp"
+#include "Welcome.hpp"
+#include "UserInterface.hpp"
 
 /**
  * \brief Simulator entry point
@@ -15,5 +18,9 @@
  */
 int main(int argc, char** argv)
 {
+	print_welcome();
+	LOG("Ok Logging system works");
+	ui::UserInterface shell = ui::UserInterface();
+	shell.mainLoop();
 	return 0; // Exit Success
 }
