@@ -8,7 +8,7 @@ namespace ui
 class MFish: public Module
 {
 	public:
-	int run(size_t argc, void* args) {
+	virtual int run(size_t argc, void* args) {
 		std::cout<<"Mr. Fish is here"<<std::endl;
 		return 0;
 	}
