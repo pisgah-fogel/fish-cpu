@@ -1,3 +1,6 @@
+mod log;
+mod traits;
+
 fn main() {
 	let mut a : u32 = 10;
 
@@ -55,11 +58,16 @@ fn main() {
 	println!("Create point");
 	
 	let c = Point { x: 2, y:4.3 };
-	println!("{}", c.x());
-	println!("{}", c.y());
+	c.print();
+	println!("Test, x: {}", c.get_x());
+	println!("Test, y: {}", c.get_y());
 
 	let c = Point { x: 2.1, y:4.3 };
 	println!("{}", c.distance_from_origin());
+
+	log::print();
+
+	traits::test();
 }
 
 fn get_size(ptr: &[i32]) -> usize {
@@ -136,12 +144,21 @@ struct Point<T, V> {
 }
 
 impl<T, V> Point<T, V> {
-    pub fn x(&self) -> &T {
+    pub fn get_x(&self) -> &T {
         &self.x
     }
-    pub fn y(&self) -> &V {
+    pub fn get_y(&self) -> &V {
         &self.y
     }
+}
+
+// std::fmt::Display
+// implement method on a generic type depending on trait bound
+// https://doc.rust-lang.org/book/ch10-02-traits.html
+impl<T: std::fmt::Display, V: std::fmt::Display> Point<T, V> {
+	pub fn print(&self) {
+		println!("Point x:{} y:{}", self.x, self.y);
+	}
 }
 
 impl Point<f32, f32> {
@@ -149,3 +166,14 @@ impl Point<f32, f32> {
         (self.x.powi(2) + self.y.powi(2)).sqrt()
     }
 }
+
+//fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+//    where T: std::fmt::Display
+//{
+//    println!("Announcement! {}", ann);
+//    if x.len() > y.len() {
+//        x
+//    } else {
+//        y
+//    }
+//}
